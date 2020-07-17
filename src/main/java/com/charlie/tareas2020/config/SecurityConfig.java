@@ -31,8 +31,8 @@ public class SecurityConfig  extends WebSecurityConfigurerAdapter {
     }
 
     @Override
-    protected void configure(AuthenticationManagerBuilder auth)
-            throws Exception {
+    protected void configure(AuthenticationManagerBuilder auth) throws Exception {
+        //User charlie = new User();
         auth.
                 jdbcAuthentication()
                 .dataSource(dataSource)
@@ -42,8 +42,28 @@ public class SecurityConfig  extends WebSecurityConfigurerAdapter {
                         User
                                 .withUsername("charlie")
                                 .password(bCryptPasswordEncoder.encode("charlie"))
-                                .roles("VIP")
-                                .build());
+                                .roles("VIP").build()
+                                )
+                .withUser(
+                        User
+                                .withUsername("director")
+                                .password(bCryptPasswordEncoder.encode("director"))
+                                .roles("DIRECTOR").build()
+                )
+                .withUser(
+                        User
+                                .withUsername("profesor")
+                                .password(bCryptPasswordEncoder.encode("profesor"))
+                                .roles("PROFESOR").build()
+                )
+                .withUser(
+                        User
+                                .withUsername("tutor")
+                                .password(bCryptPasswordEncoder.encode("tutor"))
+                                .roles("TUTOR").build()
+                )
+        ;
+
     }
 
     @Override
